@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P File Share</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>P2P File Share</h1>
+            <p class="subtitle">Direct browser-to-browser file transfer</p>
+        </header>
+
+        <main>
+            <!-- Mode Selection -->
+            <section class="mode-selection" id="modeSelection">
+                <div class="mode-card" id="sendMode">
+                    <div class="mode-icon">📤</div>
+                    <h2>Send File</h2>
+                    <p>Share a file and get a code</p>
+                </div>
+                <div class="mode-card" id="receiveMode">
+                    <div class="mode-icon">📥</div>
+                    <h2>Receive File</h2>
+                    <p>Enter a code to receive</p>
+                </div>
+            </section>
+
+            <!-- Send Section -->
+            <section class="send-section hidden" id="sendSection">
+                <button class="back-btn" id="backFromSend">← Back</button>
+                
+                <!-- File Selection -->
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <div class="upload-icon">📁</div>
+                        <p>Drag & drop a file here or <span class="browse-link" id="browseBtn">browse</span></p>
+                        <input type="file" id="fileInput" hidden>
+                    </div>
+                </div>
+
+                <!-- File Selected State -->
+                <div class="file-ready hidden" id="fileReady">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div class="file-details">
+                            <span class="file-name" id="selectedFileName">filename.txt</span>
+                            <span class="file-size" id="selectedFileSize">0 KB</span>
+                        </div>
+                        <button class="btn btn-sm" id="clearFile">✕</button>
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="createShareBtn">Create Share Code</button>
+                </div>
+
+                <!-- Waiting for Receiver -->
+                <div class="waiting-state hidden" id="waitingState">
+                    <div class="share-code-display">
+                        <p>Share this code:</p>
+                        <div class="code-box" id="shareCode">------</div>
+                        <button class="btn btn-sm" id="copyCodeBtn">Copy</button>
+                    </div>
+                    <p class="waiting-text">Waiting for receiver to connect...</p>
+                    <div class="spinner"></div>
+                </div>
+
+                <!-- Transfer Progress -->
+                <div class="transfer-state hidden" id="senderTransferState">
+                    <h3>Transferring...</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="senderProgressFill"></div>
+                        </div>
+                        <span class="progress-text" id="senderProgressText">0%</span>
+                    </div>
+                    <p class="transfer-speed" id="senderSpeed">0 KB/s</p>
+                </div>
+
+                <!-- Transfer Complete -->
+                <div class="complete-state hidden" id="senderCompleteState">
+                    <div class="success-icon">✓</div>
+                    <h3>Transfer Complete!</h3>
+                    <button class="btn btn-primary" id="sendAnotherBtn">Send Another File</button>
+                </div>
+            </section>
+
+            <!-- Receive Section -->
+            <section class="receive-section hidden" id="receiveSection">
+                <button class="back-btn" id="backFromReceive">← Back</button>
+                
+                <!-- Code Entry -->
+                <div class="code-entry" id="codeEntry">
+                    <h2>Enter Share Code</h2>
+                    <input type="text" 
+                           id="codeInput" 
+                           class="code-input" 
+                           placeholder="000000" 
+                           maxlength="6"
+                           pattern="[0-9]*"
+                           inputmode="numeric">
+                    <button class="btn btn-primary btn-lg" id="joinBtn">Join</button>
+                </div>
+
+                <!-- File Offer -->
+                <div class="file-offer hidden" id="fileOffer">
+                    <h2>Incoming File</h2>
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div class="file-details">
+                            <span class="file-name" id="offerFileName">filename.txt</span>
+                            <span class="file-size" id="offerFileSize">0 KB</span>
+                        </div>
+                    </div>
+                    <div class="offer-buttons">
+                        <button class="btn btn-primary btn-lg" id="acceptBtn">Accept</button>
+                        <button class="btn btn-danger" id="declineBtn">Decline</button>
+                    </div>
+                </div>
+
+                <!-- Receiver Transfer Progress -->
+                <div class="transfer-state hidden" id="receiverTransferState">
+                    <h3>Receiving...</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="receiverProgressFill"></div>
+                        </div>
+                        <span class="progress-text" id="receiverProgressText">0%</span>
+                    </div>
+                    <p class="transfer-speed" id="receiverSpeed">0 KB/s</p>
+                </div>
+
+                <!-- Receiver Complete -->
+                <div class="complete-state hidden" id="receiverCompleteState">
+                    <div class="success-icon">✓</div>
+                    <h3>Transfer Complete!</h3>
+                    <a class="btn btn-primary btn-lg" id="downloadBtn" download>Download File</a>
+                    <button class="btn" id="receiveAnotherBtn">Receive Another</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Connection Status -->
+        <div class="connection-status" id="connectionStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">Disconnected</span>
+        </div>
+
+        <!-- Notifications -->
+        <div class="notification hidden" id="notification">
+            <span class="notification-text" id="notificationText"></span>
+            <button class="notification-close" id="notificationClose">×</button>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
