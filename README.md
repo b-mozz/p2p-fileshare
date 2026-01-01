@@ -20,15 +20,7 @@ go run cmd/server/main.go
 
 ## Usage Guide
 
-### Same Device (Two Tabs)
-
-1. Start the server: `go run cmd/server/main.go`
-2. Open two browser tabs to `http://localhost:8080`
-3. **Tab 1 (Sender):** Click "Send a File" → Select file → Get share code
-4. **Tab 2 (Receiver):** Click "Receive a File" → Enter code → Accept
-5. File transfers directly between tabs!
-
-### Different Devices (Mac ↔ Phone)
+### Different Devices (Mac ↔ Android/iOS, Mac ↔ Windows)
 
 **Prerequisites:**
 - Both devices on the **same WiFi network**
