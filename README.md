@@ -34,7 +34,7 @@ docker run -p 8080:8080 peerdrop
 
 ## Usage Guide
 
-### Sharing Files Across Devices (Mac ↔ Android/iOS, Mac ↔ Windows)
+### Different Devices (Mac ↔ Android/iOS, Mac ↔ Windows)
 
 **Prerequisites:**
 - Both devices on the **same WiFi network**
@@ -145,7 +145,7 @@ See `internal/models/session.go` for all message types.
 
 ## Status
 
-🚧 Learning project in progress
+Learning project in progress
 
 ## License
 
