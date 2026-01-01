@@ -18,6 +18,66 @@ go run cmd/server/main.go
 # Open http://localhost:8080
 ```
 
+## Usage Guide
+
+### Same Device (Two Tabs)
+
+1. Start the server: `go run cmd/server/main.go`
+2. Open two browser tabs to `http://localhost:8080`
+3. **Tab 1 (Sender):** Click "Send a File" → Select file → Get share code
+4. **Tab 2 (Receiver):** Click "Receive a File" → Enter code → Accept
+5. File transfers directly between tabs!
+
+### Different Devices (Mac ↔ Phone)
+
+**Prerequisites:**
+- Both devices on the **same WiFi network**
+
+**Steps:**
+
+1. **On Mac:** Start the server
+   ```bash
+   go run cmd/server/main.go
+   ```
+
+2. **Find your Mac's hostname:**
+   ```bash
+   hostname
+   # Output: YourMacName.local
+   ```
+
+3. **On Mac browser:** Open `http://localhost:8080`
+   - Click "Send a File"
+   - Select your file
+   - Click "Create Share Code"
+   - Copy the 6-digit code
+
+4. **On Phone browser:** Open `http://YourMacName.local:8080`
+   - Click "Receive a File"
+   - Enter the 6-digit code
+   - Click "Accept"
+   - File transfers directly P2P!
+   - Download when complete
+
+**Alternative:** Instead of `.local`, you can use your Mac's IP address:
+```bash
+# Find IP
+ipconfig getifaddr en0
+
+# Then on phone: http://192.168.x.x:8080
+```
+
+### Troubleshooting
+
+**Connection Issues:**
+- Ensure both devices are on the same WiFi
+- Check Mac firewall settings (System Settings → Network → Firewall)
+- Try `http://` not `https://`
+
+**Transfer Fails:**
+- Currently using STUN servers only (works best on same network)
+- For different networks, TURN servers may be needed
+
 ## Architecture
 
 ```

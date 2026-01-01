@@ -8,17 +8,18 @@ import (
 )
 
 // FileMetadata contains information about the file being shared
+//we need to convert to json for browser(JS) to understand our server(Go)
 type FileMetadata struct {
-	Name string `json:"name"`
-	Size int64  `json:"size"`
-	Type string `json:"type"` // MIME type
+	Name string `json:"name"`//abc.jpeg
+	Size int64  `json:"size"`//smth kiB
+	Type string `json:"type"` // MIME type //image/jpeg
 }
 
 // Session represents an active file sharing session
 type Session struct {
-	Code         string          `json:"code"`
+	Code         string          `json:"code"` 
 	SenderConn   *websocket.Conn `json:"-"` // "-" excludes from JSON
-	ReceiverConn *websocket.Conn `json:"-"`
+	ReceiverConn *websocket.Conn `json:"-"`//same. Excluded from json
 	FileMetadata FileMetadata    `json:"fileMetadata"`
 	CreatedAt    time.Time       `json:"createdAt"`
 }

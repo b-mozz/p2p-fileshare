@@ -1,5 +1,9 @@
 package session
 
+//in memory database
+//I implemented this in my cloud-file-manager project a couple months ago
+//code is from there with some adjustments
+
 import (
 	"crypto/rand"
 	"fmt"
@@ -14,7 +18,8 @@ import (
 
 // Store manages all active sharing sessions
 type Store struct {
-	sessions map[string]*models.Session
+	sessions map[string]*models.Session //key is the 6 digit code we will generate
+	//from prev line, value is the pointer to a session struct we declared before
 	mutex    sync.RWMutex
 }
 
@@ -52,13 +57,15 @@ func (s *Store) CreateSession(senderConn *websocket.Conn, metadata models.FileMe
 		}
 		if _, exists := s.sessions[code]; !exists {
 			break
-		}
+		} //we continue generate codes until we get an unique code
+		//collison resolution is not smart here
+		//but if we consider the probability of collison, which is pretty rare for our use case, not bad
 	}
 
 	session := &models.Session{
 		Code:         code,
 		SenderConn:   senderConn,
-		ReceiverConn: nil,
+		ReceiverConn: nil, //no one to recieve yet
 		FileMetadata: metadata,
 		CreatedAt:    time.Now(),
 	}

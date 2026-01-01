@@ -12,6 +12,7 @@ import (
 )
 
 var upgrader = websocket.Upgrader{
+	//we are not declaring buffer. uses default 4096 bytes
 	CheckOrigin: func(r *http.Request) bool {
 		return true // Allow all origins for development
 	},
