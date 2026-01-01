@@ -130,7 +130,7 @@ See `internal/models/session.go` for all message types.
 
 ## Status
 
-🚧 Learning project in progress
+Learning project in progress
 
 ## License
 
