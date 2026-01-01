@@ -1,0 +1,21 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+*.md
+README.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Binaries
+*.exe
+peerdrop
