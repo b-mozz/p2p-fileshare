@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"p2p-fileshare/internal/handlers"
 	"p2p-fileshare/internal/session"
@@ -47,6 +48,12 @@ func main() {
 		http.ServeFile(w, r, "./web/index.html")
 	})
 
-	log.Println("P2P File Share server starting on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	// Get port from environment variable (Heroku) or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("P2P File Share server starting on port %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }

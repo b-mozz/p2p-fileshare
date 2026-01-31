@@ -18,7 +18,7 @@ import (
 
 // Store manages all active sharing sessions
 type Store struct {
-	sessions map[string]*models.Session //key is the 6 digit code we will generate
+	sessions map[string]*models.Session //key is the 4 digit code we will generate
 	//from prev line, value is the pointer to a session struct we declared before
 	mutex    sync.RWMutex
 }
@@ -30,15 +30,15 @@ func NewStore() *Store {
 	}
 }
 
-// generateCode creates a random 6-digit code
+// generateCode creates a random 4-digit code
 func (s *Store) generateCode() (string, error) {
-	// Generate a random number between 100000 and 999999
-	max := big.NewInt(900000)
+	// Generate a random number between 1000 and 9999
+	max := big.NewInt(9000)
 	n, err := rand.Int(rand.Reader, max)
 	if err != nil {
 		return "", err
 	}
-	code := fmt.Sprintf("%06d", n.Int64()+100000)
+	code := fmt.Sprintf("%04d", n.Int64()+1000)
 	return code, nil
 }
 
