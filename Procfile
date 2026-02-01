@@ -1,1 +1,1 @@
-web: bin/p2p-fileshare
+web: bin/server
