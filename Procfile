@@ -1,1 +1,1 @@
-web: peerdrop
+web: bin/p2p-fileshare
