@@ -2,9 +2,13 @@
 
 Browser-to-browser file sharing using WebRTC. Server only handles signaling - file data transfers directly between peers.
 
+## Live Demo
+
+**[https://p2p-share-f8797c8126c9.herokuapp.com/](https://p2p-share-f8797c8126c9.herokuapp.com/)**
+
 ## How It Works
 
-1. **Sender** selects a file → gets a 6-digit share code
+1. **Sender** selects a file → gets a 4-digit share code
 2. **Receiver** enters the code → sees file info → accepts
 3. **Transfer** happens directly browser-to-browser (P2P)
 4. **Server** facilitates the handshake, never sees file data
@@ -30,6 +34,14 @@ docker build -t peerdrop .
 docker run -p 8080:8080 peerdrop
 
 # Open http://localhost:8080
+```
+
+### Option 3: Deploy to Heroku
+
+```bash
+heroku create your-app-name
+git push heroku main
+heroku open
 ```
 
 ## Usage Guide
@@ -64,11 +76,11 @@ docker run -p 8080:8080 peerdrop
    - Click "Send a File"
    - Select your file
    - Click "Create Share Code"
-   - Copy the 6-digit code
+   - Copy the 4-digit code
 
 4. **On phone browser:** Open `http://YourComputerName.local:8080`
    - Click "Receive a File"
-   - Enter the 6-digit code
+   - Enter the 4-digit code
    - Click "Accept"
    - File transfers directly P2P!
    - Download when complete
@@ -136,7 +148,7 @@ Messages are JSON with this structure:
 ```json
 {
     "type": "create|join|offer|answer|ice-candidate|...",
-    "code": "123456",
+    "code": "1234",
     "payload": { ... }
 }
 ```

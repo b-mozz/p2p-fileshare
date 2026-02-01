@@ -171,8 +171,8 @@ function joinSession() {
     var codeInput = document.getElementById('codeInput');
     var code = codeInput.value.trim();
     
-    if (code.length !== 6) {
-        showNotification('Please enter a 6-digit code', 'error');
+    if (code.length !== 4) {
+        showNotification('Please enter a 4-digit code', 'error');
         return;
     }
 
